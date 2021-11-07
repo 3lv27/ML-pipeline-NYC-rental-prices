@@ -30,6 +30,10 @@ def go(args):
 
     df.to_csv(args.output_artifact, index=False)
 
+    # drop rows in the dataset that are not in the proper geolocation
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
+
     # Upload to W&B
     logger.info("Upload output artifact %s of type %s", args.output_artifact, args.output_type)
     artifact = wandb.Artifact(
