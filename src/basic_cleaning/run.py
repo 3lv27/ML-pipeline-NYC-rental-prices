@@ -12,6 +12,10 @@ logger = logging.getLogger()
 
 
 def go(args):
+    """
+    Main function
+    """
+
     run = wandb.init(job_type="basic_cleaning")
     run.config.update(args)
 
@@ -44,7 +48,6 @@ def go(args):
     )
     artifact.add_file(args.output_artifact)
     run.log_artifact(artifact)
-
 
 
 if __name__ == "__main__":
